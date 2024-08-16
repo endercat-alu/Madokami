@@ -5,7 +5,7 @@
 // @namespace           https://github.com/endercat-alu/Madokami
 // @author              WhatIF Studio
 // @include             *
-// @icon                https://haojiezhe12345.top:82/madohomu/res/favicon-320.png
+// @icon                https://www.sakurayuri.top/favicon.ico
 // @license             MIT
 // @run-at              document-end
 // @grant               none
