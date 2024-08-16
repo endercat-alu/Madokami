@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         根据 IP 更新 Discourse 地区信息
 // @namespace    https://www.sakurayuri.top/
-// @version      ver2.5
+// @version      ver2.6
 // @description  自动获取用户当前位置并更新到 Discourse 个人资料中。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
