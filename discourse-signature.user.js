@@ -5,7 +5,7 @@
 // @description  在 Discourse 回复或创建帖子时快速按三次 Enter 后自动添加小尾巴
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
-// @icon         https://haojiezhe12345.top:82/madohomu/res/favicon-320.png
+// @icon         https://www.sakurayuri.top/favicon.ico
 // @license      MIT
 // @grant        GM_xmlhttpRequest
 // @run-at       document-end
