@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                アルティメットまどか Live2D
 // @description         Powered by WhatIF Studio.
-// @version             0.7.21
+// @version             ver1.3
 // @namespace           https://github.com/endercat-alu/Madokami
 // @author              WhatIF Studio
 // @include             *
@@ -15,7 +15,7 @@
   'use strict';
 
   if (inIframe()) {
-    console.log('Live2D 不会在 iFrame 中加载。');
+    console.log('Live2D 不会在 iframe 中加载。');
     return false;
   }
 
