@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Discourse 按二次 Enter 添加小尾巴
+// @name         Discourse 按三次 Enter 添加小尾巴
 // @namespace    http://tampermonkey.net/
 // @version      ver1.0
-// @description  在 Discourse 回复或创建帖子时按二次 Enter 后自动添加小尾巴
+// @description  在 Discourse 回复或创建帖子时按三次 Enter 后自动添加小尾巴
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
 // @icon         https://haojiezhe12345.top:82/madohomu/res/favicon-320.png
@@ -103,7 +103,7 @@
         const osInfo = getOSInfo();
         const dateTime = getCurrentDateTime();
 
-        const signature = `***\n<div style="text-align:center" dir="auto"><span style="font-size:80%">\n${browserInfo} | ${osInfo} | ${location} | ${dateTime}</span></div>`;
+        const signature = `\n***\n<div style="text-align:center" dir="auto"><span style="font-size:80%">\n${browserInfo} | ${osInfo} | ${location} | ${dateTime}</span></div>`;
 
         const textarea = document.querySelector('textarea.d-editor-input');
         if (textarea) {
@@ -115,7 +115,7 @@
     $(document).on('keydown', 'textarea.d-editor-input', function(event) {
         if (event.key === 'Enter') {
             enterCount++;
-            if (enterCount === 2 && isContentValid()) {
+            if (enterCount === 3 && isContentValid()) {
                 getLocation(insertSignature);
                 enterCount = 0;
             }
