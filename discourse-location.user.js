@@ -1,19 +1,38 @@
 // ==UserScript==
 // @name         根据 IP 更新 Discourse 地区信息
-// @namespace    https://www.sakurayuri.top/
-// @version      ver3.8
+// @version      ver4.1
 // @description  自动获取用户当前位置并更新到 Discourse 个人资料中。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
 // @icon         https://www.sakurayuri.top/favicon.ico
 // @license      MIT
 // @grant        GM_xmlhttpRequest
+// @grant        GM_registerMenuCommand
 // ==/UserScript==
 
 (function() {
     'use strict';
 
     let username;
+    let locationMode = localStorage.getItem('locationMode') || 'auto'; // 默认 "自动选择"
+
+    // 注册菜单命令
+    GM_registerMenuCommand("自动选择", () => setLocationMode('auto'));
+    GM_registerMenuCommand("使用城市作为子位置", () => setLocationMode('city'));
+    GM_registerMenuCommand("使用省份作为子位置", () => setLocationMode('region'));
+
+    function setLocationMode(mode) {
+        locationMode = mode;
+        localStorage.setItem('locationMode', mode); // 保存用户选择
+        console.log("Location mode set to:", mode);
+        alert(`位置更新模式已设置为: ${mode === 'auto' ? '自动选择' : mode === 'city' ? '使用城市作为子位置' : '使用省份作为子位置'}`);
+        if (username) {
+            checkAndUpdateLocation(username); // 立即更新位置
+        } else {
+            // 如果用户名还未提取到，等提取到用户名后再更新位置
+            console.log("Username not yet available, location update will be applied after username extraction.");
+        }
+    }
 
     // 优先使用外部的 baseURI 提取法
     const baseURI = document.baseURI;
@@ -24,7 +43,6 @@
         console.log("Username from baseURI:", username);
         checkAndUpdateLocation(username);
     } else {
-        // 如果 baseURI 方法失败，则加载 iframe 进行提取
         console.log("baseURI failed, loading iframe...");
 
         const iframe = document.createElement('iframe');
@@ -42,7 +60,6 @@
         iframe.onload = function() {
             const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
 
-            // 直接尝试通过 iframe 内的跳转后的 URL 提取用户名
             const redirectedUrl = iframe.contentWindow.location.href;
             const usernameMatch = redirectedUrl.match(/https:\/\/linux\.do\/u\/([^\/]+)\/preferences\/profile/);
 
@@ -102,11 +119,20 @@
                         let regionName = responseData.regionName;
                         let city = responseData.city;
 
-                        if (country === regionName) {
-                            regionName = city;
+                        let expectedLocation;
+
+                        switch(locationMode) {
+                            case 'city':
+                                expectedLocation = `IP: ${country}, ${city}`;
+                                break;
+                            case 'region':
+                                expectedLocation = `IP: ${country}, ${regionName}`;
+                                break;
+                            case 'auto':
+                            default:
+                                expectedLocation = country === regionName ? `IP: ${country}, ${city}` : `IP: ${country}, ${regionName}`;
                         }
 
-                        const expectedLocation = `IP: ${country}, ${regionName}`;
                         console.log("Current IP location:", expectedLocation);
 
                         if (currentLocation === expectedLocation) {
