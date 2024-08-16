@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Discourse 快速按三次 Enter 添加小尾巴
+// @name         Discourse 按三次 Enter 添加小尾巴
 // @namespace    http://tampermonkey.net/
 // @version      ver1.0
-// @description  在 Discourse 回复或创建帖子时快速按三次 Enter 后自动添加小尾巴
+// @description  在 Discourse 回复或创建帖子时按三次 Enter 后自动添加小尾巴
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
 // @icon         https://haojiezhe12345.top:82/madohomu/res/favicon-320.png
@@ -111,27 +111,16 @@
         }
     }
 
-    // 3 Enters in 2s
-    let enterTimer;
-
+    // 3 Enters
     $(document).on('keydown', 'textarea.d-editor-input', function(event) {
         if (event.key === 'Enter') {
             enterCount++;
-
-            if (enterCount === 1) {
-                // 第一次按下 Enter 时启动计时器
-                enterTimer = setTimeout(function() {
-                    enterCount = 0; // 2 秒后重置计数
-                }, 2000);
-            }
-
-            if (enterCount === 1.5 && isContentValid()) {
-            clearTimeout(enterTimer); // 清除计时器
+            if (enterCount === 3 && isContentValid()) {
             getLocation(insertSignature);
-            enterCount = 0; // 重置计数
+                enterCount = 0;
             }
         } else {
-            enterCount = 0; // 如果按下的不是 Enter，重置计数
+            enterCount = 0; // Reset Counts
         }
     });
 
