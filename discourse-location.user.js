@@ -115,14 +115,12 @@
                         console.error("Error:", data.errors);
                     } else {
                         console.log("Location updated successfully:", data);
-                        alert("地区信息已成功更新！");
                     }
                     // 延迟销毁 iframe
                     if (iframe) setTimeout(() => iframe.remove(), 1000);
                 })
                 .catch((error) => {
                     console.error("Request failed:", error);
-                    alert("更新地区信息失败，请检查控制台日志。");
                     // 延迟销毁 iframe
                     if (iframe) setTimeout(() => iframe.remove(), 1000);
                 });
