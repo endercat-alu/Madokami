@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         根据 IP 更新 Discourse 地区信息
 // @namespace    https://www.sakurayuri.top/
-// @version      ver3.5
+// @version      ver3.6
 // @description  自动获取用户当前位置并更新到 Discourse 个人资料中。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -83,11 +83,6 @@
     }
 
     function checkAndUpdateLocation(username, iframe = null) {
-        if (iframe) {
-            console.log("Script is running inside an iframe, exiting.");
-            setTimeout(() => iframe.remove(), 1000);
-            return;
-        }
 
         const apiUrl = `/u/${username}.json`;
 
