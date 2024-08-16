@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Discourse IP
-// @version      ver4.5
+// @version      ver4.6
 // @description  自动获取用户当前位置并更新到 Discourse 个人资料中。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -14,7 +14,7 @@
     'use strict';
 
     const website = 'https://linux.do'; // 定义网站根 URL
-    const site = 'linux.do' // 同上
+    const site = 'linux.do'; // 同上
 
     let username;
     let locationMode = localStorage.getItem('locationMode') || 'auto'; // 默认 "自动选择"
@@ -39,7 +39,7 @@
     // 优先使用 JSON 接口提取用户名
     GM_xmlhttpRequest({
         method: "GET",
-        url: "${website}/session/current.json",
+        url: `${website}/session/current.json`,
         onload: function(response) {
             const jsonResponse = JSON.parse(response.responseText);
             if (jsonResponse && jsonResponse.current_user && jsonResponse.current_user.username) {
@@ -77,7 +77,7 @@
             iframe.style.width = '0px';
             iframe.style.height = '0px';
             iframe.style.border = 'none';
-            iframe.src = 'h${website}/my/preferences/profile';
+            iframe.src = `${website}/my/preferences/profile`;
 
             document.body.appendChild(iframe);
 
@@ -110,7 +110,7 @@
     }
 
     function tryAvatarMethod(iframe) {
-        let avatarImg = document.querySelector('img[src^="${website}/user_avatar/${site}"]');
+        let avatarImg = document.querySelector(`img[src^="${website}/user_avatar/${site}"]`);
 
         if (avatarImg) {
             const avatarSrc = avatarImg.src;
