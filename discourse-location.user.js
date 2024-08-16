@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         根据 IP 更新 Discourse 地区信息
 // @namespace    https://www.sakurayuri.top/
-// @version      ver3.4
+// @version      ver3.5
 // @description  自动获取用户当前位置并更新到 Discourse 个人资料中。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -18,13 +18,14 @@
     // 优先使用外部的 baseURI 提取法
     const baseURI = document.baseURI;
     const usernameMatch = baseURI.match(/\/u\/([^\/]+)\//);
+
     if (usernameMatch) {
         username = usernameMatch[1];
         console.log("Username from baseURI:", username);
         checkAndUpdateLocation(username);
     } else {
-        // 如果 baseURI 方法失败，则尝试 iframe 方法
-        console.log("BaseURI failed, loading iframe...");
+        // 如果 baseURI 方法失败，则加载 iframe 进行提取
+        console.log("baseURI failed, loading iframe...");
 
         const iframe = document.createElement('iframe');
         iframe.style.position = 'fixed';
