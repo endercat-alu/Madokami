@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Madoka! 文字小尾巴
-// @version      ver1.3
+// @version      ver1.5
 // @description  在 Discourse 回复或创建帖子时快速按三次 Enter 后自动添加小尾巴，并使用 IP 选择逻辑。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -99,6 +99,11 @@
                     case 'auto':
                     default:
                         location = country === regionName ? `${country}, ${city}` : `${country}, ${regionName}`;
+                }
+
+                // 只有当 country === 子位置时才简写
+                if ((locationMode === 'city' && country === city) || (locationMode === 'region' && country === regionName)) {
+                    location = country;
                 }
 
                 callback(location);
