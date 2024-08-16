@@ -103,7 +103,7 @@
         const osInfo = getOSInfo();
         const dateTime = getCurrentDateTime();
 
-        const signature = `\n***\n<div style="text-align:center" dir="auto"><span style="font-size:70%">\n${browserInfo} | ${osInfo} | ${location} | ${dateTime}</span></div>`;
+        const signature = `\n***\n<div style="text-align:center" dir="auto"><span style="font-size:80%">\n${browserInfo} | ${osInfo} | ${location} | ${dateTime}</span></div>`;
 
         const textarea = document.querySelector('textarea.d-editor-input');
         if (textarea) {
