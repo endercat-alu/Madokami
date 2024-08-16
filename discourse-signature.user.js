@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Discourse 快速按三次 Enter 添加小尾巴
+// @name         Madoka! 文字小尾巴
 // @namespace    https://www.sakurayuri.top/
 // @version      ver1.1
 // @description  在 Discourse 回复或创建帖子时快速按三次 Enter 后自动添加小尾巴
