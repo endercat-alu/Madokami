@@ -27,6 +27,10 @@
         console.log("BaseURI failed, loading iframe...");
 
         const iframe = document.createElement('iframe');
+        iframe.style.position = 'fixed';  // 固定在屏幕上
+        iframe.style.top = '50%';         // 垂直居中
+        iframe.style.left = '50%';        // 水平居中
+        iframe.style.transform = 'translate(-50%, -50%)'; // 使居中效果生效
         iframe.style.width = '0px';
         iframe.style.height = '0px';
         iframe.style.border = 'none';
