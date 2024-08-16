@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         根据 IP 更新 Discourse 地区信息
 // @namespace    https://www.sakurayuri.top/
-// @version      ver3.7
+// @version      ver3.8
 // @description  自动获取用户当前位置并更新到 Discourse 个人资料中。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -98,8 +98,14 @@
                     url: "http://ip-api.com/json",
                     onload: function(response) {
                         const responseData = JSON.parse(response.responseText);
-                        const country = responseData.country;
-                        const regionName = responseData.regionName
+                        let country = responseData.country;
+                        let regionName = responseData.regionName;
+                        let city = responseData.city;
+
+                        if (country === regionName) {
+                            regionName = city;
+                        }
+
                         const expectedLocation = `IP: ${country}, ${regionName}`;
                         console.log("Current IP location:", expectedLocation);
 
