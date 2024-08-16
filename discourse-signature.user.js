@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Discourse 快速按三次 Enter 添加小尾巴
-// @namespace    http://tampermonkey.net/
+// @namespace    https://www.sakurayuri.top/
 // @version      ver1.1
 // @description  在 Discourse 回复或创建帖子时快速按三次 Enter 后自动添加小尾巴
 // @author       鹿目 まどか Advanced
