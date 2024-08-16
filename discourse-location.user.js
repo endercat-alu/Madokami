@@ -5,6 +5,8 @@
 // @description  自动获取用户当前位置并更新到 Discourse 个人资料中。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
+// @icon         https://haojiezhe12345.top:82/madohomu/res/favicon-320.png
+// @license      MIT
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
