@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         根据 IP 更新 Discourse 地区信息
 // @namespace    https://www.sakurayuri.top/
-// @version      ver2.6
+// @version      ver2.8
 // @description  自动获取用户当前位置并更新到 Discourse 个人资料中。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -14,6 +14,7 @@
     'use strict';
 
     let username;
+    let iframeLoaded = false;  // 防止 onload 回调被多次执行
 
     // 优先使用 baseURI 提取法
     const baseURI = document.baseURI;
@@ -27,10 +28,10 @@
         console.log("BaseURI failed, loading iframe...");
 
         const iframe = document.createElement('iframe');
-        iframe.style.position = 'fixed';  // 固定在屏幕上
-        iframe.style.top = '50%';         // 垂直居中
-        iframe.style.left = '50%';        // 水平居中
-        iframe.style.transform = 'translate(-50%, -50%)'; // 使居中效果生效
+        iframe.style.position = 'fixed';
+        iframe.style.top = '50%';
+        iframe.style.left = '50%';
+        iframe.style.transform = 'translate(-50%, -50%)';
         iframe.style.width = '0px';
         iframe.style.height = '0px';
         iframe.style.border = 'none';
@@ -39,6 +40,9 @@
         document.body.appendChild(iframe);
 
         iframe.onload = function() {
+            if (iframeLoaded) return;  // 防止多次执行
+            iframeLoaded = true;
+
             const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
             const usernameElement = iframeDocument.querySelector('.username.user-profile-names__secondary');
 
@@ -72,6 +76,13 @@
     }
 
     function checkAndUpdateLocation(username, iframe = null) {
+        // 检查是否在 iframe 中，如果是则直接退出
+        if (iframe) {
+            console.log("Script is running inside an iframe, exiting.");
+            setTimeout(() => iframe.remove(), 1000);
+            return;
+        }
+
         const apiUrl = `/u/${username}.json`;
 
         // 先获取用户的当前位置数据
@@ -82,7 +93,7 @@
                 const userData = JSON.parse(response.responseText);
                 const currentLocation = userData.user.location;
 
-                // 获取当前 IP 所在国家
+                // 获取当前 IP 所在国家 / 地区
                 GM_xmlhttpRequest({
                     method: "GET",
                     url: "http://ip-api.com/json",
@@ -95,10 +106,10 @@
                         // 检查当前位置是否已经匹配
                         if (currentLocation === expectedLocation) {
                             console.log("Location is already up-to-date:", currentLocation);
-                            // 如果位置已经是最新的，则不再更新，直接结束
+                            // 如果位置已经被更新的，则不再更新，结束程序
                             if (iframe) setTimeout(() => iframe.remove(), 1000);
                         } else {
-                            console.log("Location needs update. Current:", currentLocation, "Expected:", expectedLocation);
+                            console.log("Location updates. Before:", currentLocation, "Expected:", expectedLocation);
                             executeUpdate(username, expectedLocation, iframe);
                         }
                     }
@@ -121,12 +132,12 @@
         }
 
         const data = {
-            location: newLocation  // 设置格式化的位置信息
+            location: newLocation  // 设置位置信息
         };
 
         console.log("Sending data:", JSON.stringify(data));
 
-        // 发送 PUT 请求，更新地区信息
+        // 发送 PUT 请求，更新位置信息
         fetch(apiUrl, {
             method: "PUT",
             headers: {
