@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         根据 IP 更新 Discourse 地区信息
 // @namespace    https://www.sakurayuri.top/
-// @version      ver2.8
+// @version      ver3.0
 // @description  自动获取用户当前位置并更新到 Discourse 个人资料中。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -43,17 +43,29 @@
             if (iframeLoaded) return;  // 防止多次执行
             iframeLoaded = true;
 
-            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-            const usernameElement = iframeDocument.querySelector('.username.user-profile-names__secondary');
+            // 先尝试通过跳转后的 URL 提取用户名
+            const redirectedUrl = iframe.contentWindow.location.href;
+            const usernameMatch = redirectedUrl.match(/https:\/\/linux\.do\/([^\/]+)\/preferences\/profile/);
 
-            if (usernameElement) {
-                username = usernameElement.textContent.trim();
-                console.log("Username extracted from username element in iframe:", username);
-
+            if (usernameMatch) {
+                username = usernameMatch[1];
+                console.log("Username extracted from redirected URL:", username);
                 checkAndUpdateLocation(username, iframe);
             } else {
-                console.error("Username could not be extracted from iframe, trying avatar method.");
-                tryAvatarMethod(iframe);
+                console.error("Username could not be extracted from redirected URL, trying element methods.");
+
+                // 如果跳转法失败，尝试提取页面元素中的用户名
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                const usernameElement = iframeDocument.querySelector('.username.user-profile-names__secondary');
+
+                if (usernameElement) {
+                    username = usernameElement.textContent.trim();
+                    console.log("Username extracted from username element in iframe:", username);
+                    checkAndUpdateLocation(username, iframe);
+                } else {
+                    console.error("Username could not be extracted from iframe, trying avatar method.");
+                    tryAvatarMethod(iframe);
+                }
             }
         };
     }
