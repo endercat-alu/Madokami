@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Discourse 按三次 Enter 添加小尾巴
+// @name         Discourse 快速按三次 Enter 添加小尾巴
 // @namespace    http://tampermonkey.net/
-// @version      ver1.0
-// @description  在 Discourse 回复或创建帖子时按三次 Enter 后自动添加小尾巴
+// @version      ver1.1
+// @description  在 Discourse 回复或创建帖子时快速按三次 Enter 后自动添加小尾巴
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
 // @icon         https://haojiezhe12345.top:82/madohomu/res/favicon-320.png
@@ -16,6 +16,7 @@
     'use strict';
 
     let enterCount = 0;
+    let lastEnterTime = 0;
 
     // Browser
     function getBrowserInfo() {
@@ -111,18 +112,26 @@
         }
     }
 
-    // 3 Enters
+    // 3 Enters within 2.5 seconds
     $(document).on('keydown', 'textarea.d-editor-input', function(event) {
         if (event.key === 'Enter') {
-            enterCount++;
+            const currentTime = new Date().getTime();
+
+            if (currentTime - lastEnterTime <= 2000) {
+                enterCount++;
+            } else {
+                enterCount = 1; // Reset count if more than 2 seconds passed
+            }
+
+            lastEnterTime = currentTime;
+
             if (enterCount === 3 && isContentValid()) {
-            getLocation(insertSignature);
+                getLocation(insertSignature);
                 enterCount = 0;
             }
         } else {
-            enterCount = 0; // Reset Counts
+            enterCount = 0; // Reset count on any other key press
         }
     });
-
 
 })();
