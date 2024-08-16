@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Discourse IP
-// @version      ver4.2
+// @version      ver4.5
 // @description  自动获取用户当前位置并更新到 Discourse 个人资料中。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -12,6 +12,9 @@
 
 (function() {
     'use strict';
+
+    const website = 'https://linux.do'; // 定义网站根 URL
+    const site = 'linux.do' // 同上
 
     let username;
     let locationMode = localStorage.getItem('locationMode') || 'auto'; // 默认 "自动选择"
@@ -29,63 +32,85 @@
         if (username) {
             checkAndUpdateLocation(username); // 立即更新位置
         } else {
-            // 如果用户名还未提取到，等提取到用户名后再更新位置
             console.log("Username not yet available, location update will be applied after username extraction.");
         }
     }
 
-    // 优先使用外部的 baseURI 提取法
-    const baseURI = document.baseURI;
-    const usernameMatch = baseURI.match(/\/u\/([^\/]+)\//);
-
-    if (usernameMatch) {
-        username = usernameMatch[1];
-        console.log("Username from baseURI:", username);
-        checkAndUpdateLocation(username);
-    } else {
-        console.log("baseURI failed, loading iframe...");
-
-        const iframe = document.createElement('iframe');
-        iframe.style.position = 'fixed';
-        iframe.style.top = '50%';
-        iframe.style.left = '50%';
-        iframe.style.transform = 'translate(-50%, -50%)';
-        iframe.style.width = '0px';
-        iframe.style.height = '0px';
-        iframe.style.border = 'none';
-        iframe.src = 'https://linux.do/my/preferences/profile';
-
-        document.body.appendChild(iframe);
-
-        iframe.onload = function() {
-            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-
-            const redirectedUrl = iframe.contentWindow.location.href;
-            const usernameMatch = redirectedUrl.match(/https:\/\/linux\.do\/u\/([^\/]+)\/preferences\/profile/);
-
-            if (usernameMatch) {
-                username = usernameMatch[1];
-                console.log("Username extracted from redirected URL:", username);
-                checkAndUpdateLocation(username, iframe);
+    // 优先使用 JSON 接口提取用户名
+    GM_xmlhttpRequest({
+        method: "GET",
+        url: "${website}/session/current.json",
+        onload: function(response) {
+            const jsonResponse = JSON.parse(response.responseText);
+            if (jsonResponse && jsonResponse.current_user && jsonResponse.current_user.username) {
+                username = jsonResponse.current_user.username;
+                console.log("Username from JSON API:", username);
+                checkAndUpdateLocation(username);
             } else {
-                console.error("Username could not be extracted from redirected URL, trying element methods.");
+                console.log("JSON API failed, falling back to other methods.");
+                extractUsernameFromBaseURIOrIframe();
+            }
+        },
+        onerror: function() {
+            console.log("Failed to fetch username from JSON API, falling back to other methods.");
+            extractUsernameFromBaseURIOrIframe();
+        }
+    });
 
-                const usernameElement = iframeDocument.querySelector('.username.user-profile-names__secondary');
+    function extractUsernameFromBaseURIOrIframe() {
+        // 尝试从 baseURI 提取用户名
+        const baseURI = document.baseURI;
+        const usernameMatch = baseURI.match(/\/u\/([^\/]+)\//);
 
-                if (usernameElement) {
-                    username = usernameElement.textContent.trim();
-                    console.log("Username extracted from username element in iframe:", username);
+        if (usernameMatch) {
+            username = usernameMatch[1];
+            console.log("Username from baseURI:", username);
+            checkAndUpdateLocation(username);
+        } else {
+            console.log("baseURI failed, loading iframe...");
+
+            const iframe = document.createElement('iframe');
+            iframe.style.position = 'fixed';
+            iframe.style.top = '50%';
+            iframe.style.left = '50%';
+            iframe.style.transform = 'translate(-50%, -50%)';
+            iframe.style.width = '0px';
+            iframe.style.height = '0px';
+            iframe.style.border = 'none';
+            iframe.src = 'h${website}/my/preferences/profile';
+
+            document.body.appendChild(iframe);
+
+            iframe.onload = function() {
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+                const redirectedUrl = iframe.contentWindow.location.href;
+                const usernameMatch = redirectedUrl.match(/https:\/\/linux\.do\/u\/([^\/]+)\/preferences\/profile/);
+
+                if (usernameMatch) {
+                    username = usernameMatch[1];
+                    console.log("Username extracted from redirected URL:", username);
                     checkAndUpdateLocation(username, iframe);
                 } else {
-                    console.error("Username could not be extracted from iframe, trying avatar method.");
-                    tryAvatarMethod(iframe);
+                    console.error("Username could not be extracted from redirected URL, trying element methods.");
+
+                    const usernameElement = iframeDocument.querySelector('.username.user-profile-names__secondary');
+
+                    if (usernameElement) {
+                        username = usernameElement.textContent.trim();
+                        console.log("Username extracted from username element in iframe:", username);
+                        checkAndUpdateLocation(username, iframe);
+                    } else {
+                        console.error("Username could not be extracted from iframe, trying avatar method.");
+                        tryAvatarMethod(iframe);
+                    }
                 }
-            }
-        };
+            };
+        }
     }
 
     function tryAvatarMethod(iframe) {
-        let avatarImg = document.querySelector('img[src^="https://linux.do/user_avatar/linux.do/"]');
+        let avatarImg = document.querySelector('img[src^="${website}/user_avatar/${site}"]');
 
         if (avatarImg) {
             const avatarSrc = avatarImg.src;
@@ -131,6 +156,11 @@
                             case 'auto':
                             default:
                                 expectedLocation = country === regionName ? `IP: ${country}, ${city}` : `IP: ${country}, ${regionName}`;
+                        }
+
+                        // 简写逻辑：当 country 等于子位置时，简写为 country
+                        if ((locationMode === 'city' && country === city) || (locationMode === 'region' && country === regionName)) {
+                            expectedLocation = `IP: ${country}`;
                         }
 
                         console.log("Current IP location:", expectedLocation);
