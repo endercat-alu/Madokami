@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         Madoka! 文字小尾巴
-// @version      ver1.2
-// @description  在 Discourse 回复或创建帖子时快速按三次 Enter 后自动添加小尾巴
+// @version      ver1.3
+// @description  在 Discourse 回复或创建帖子时快速按三次 Enter 后自动添加小尾巴，并使用 IP 选择逻辑。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
 // @icon         https://www.sakurayuri.top/favicon.ico
 // @license      MIT
 // @grant        GM_xmlhttpRequest
+// @grant        GM_registerMenuCommand
 // @run-at       document-end
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js
 // ==/UserScript==
@@ -16,6 +17,19 @@
 
     let enterCount = 0;
     let lastEnterTime = 0;
+    let locationMode = localStorage.getItem('locationMode') || 'auto'; // 默认 "自动选择"
+
+    // 注册菜单命令
+    GM_registerMenuCommand("自动选择", () => setLocationMode('auto'));
+    GM_registerMenuCommand("使用城市作为子位置", () => setLocationMode('city'));
+    GM_registerMenuCommand("使用省份作为子位置", () => setLocationMode('region'));
+
+    function setLocationMode(mode) {
+        locationMode = mode;
+        localStorage.setItem('locationMode', mode); // 保存用户选择
+        console.log("Location mode set to:", mode);
+        alert(`位置更新模式已设置为: ${mode === 'auto' ? '自动选择' : mode === 'city' ? '使用城市作为子位置' : '使用省份作为子位置'}`);
+    }
 
     // Browser
     function getBrowserInfo() {
@@ -69,7 +83,24 @@
             method: "GET",
             url: "http://ip-api.com/json",
             onload: function(response) {
-                const location = JSON.parse(response.responseText).country;
+                const responseData = JSON.parse(response.responseText);
+                let country = responseData.country;
+                let regionName = responseData.regionName;
+                let city = responseData.city;
+
+                let location;
+                switch(locationMode) {
+                    case 'city':
+                        location = `${country}, ${city}`;
+                        break;
+                    case 'region':
+                        location = `${country}, ${regionName}`;
+                        break;
+                    case 'auto':
+                    default:
+                        location = country === regionName ? `${country}, ${city}` : `${country}, ${regionName}`;
+                }
+
                 callback(location);
             }
         });
