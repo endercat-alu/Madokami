@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MadoHomu! 橘味小尾巴
-// @version      ver1.2
+// @version      yuri1.3
 // @description  在 Discourse 回复或创建帖子时快速按三次 Enter 后自动添加橘味小尾巴
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
