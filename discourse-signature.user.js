@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Madoka! 文字小尾巴
-// @version      ver1.5
+// @version      ver1.6
 // @description  在 Discourse 回复或创建帖子时快速按三次 Enter 后自动添加小尾巴，并使用 IP 选择逻辑。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -128,7 +128,7 @@
         const textarea = document.querySelector('textarea.d-editor-input');
         if (textarea) {
             const content = textarea.value.trim().replace(/\s+/g, ''); // 去掉空格
-            return content.length >= 8;
+            return content.length >= 6;
         }
         return false;
     }
