@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MadoHomu! 橘味小尾巴
-// @version      ver1.1
+// @version      ver1.2
 // @description  在 Discourse 回复或创建帖子时快速按三次 Enter 后自动添加橘味小尾巴
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -37,7 +37,7 @@
         const textarea = document.querySelector('textarea.d-editor-input');
         if (textarea) {
             const content = textarea.value.trim().replace(/\s+/g, ''); // 去掉空格
-            return content.length >= 8;
+            return content.length >= 6;
         }
         return false;
     }
