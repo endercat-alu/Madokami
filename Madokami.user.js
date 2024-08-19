@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                アルティメットまどか Live2D
 // @description         Powered by WhatIF Studio.
-// @version             ver1.3
+// @version             ver1.4
 // @namespace           https://github.com/endercat-alu/Madokami
 // @author              WhatIF Studio
 // @include             *
@@ -161,17 +161,17 @@
   // 模型加载完成回调
   function onModelLoad(model) {
     const canvas = document.getElementById("pio")
-    const modelNmae = model.internalModel.settings.name
+    const modelName = model.internalModel.settings.name
     const coreModel = model.internalModel.coreModel
     const motionManager = model.internalModel.motionManager
 
     let touchList = [
       {
-        text: "点击展示文本1",
+        text: "Text #1",
         motion: "Idle"
       },
       {
-        text: "点击展示文本2",
+        text: "Text #2",
         motion: "Idle"
       }
     ]
@@ -208,136 +208,49 @@
       playAction(action)
     }
 
-    if (modelNmae === "Diana") {
-      // 嘉然小姐
+    if (modelName === "アルティメットまどか") {
+      // 圆神，启动！
 
       // 入场动作及文案
-      initConfig.content.skin[1] = ["我是吃货担当 嘉然 Diana~", "嘉心糖们 想然然了没有呀~", "有人在吗？"]
-      playAction({ motion: "Tap抱阿草-左手" })
+      initConfig.content.skin[1] = ["11", "45", "14"]
+      playAction({ motion: "motion_010" })
 
       // 点击动作及文案，不区分区域
       touchList = [
         {
           text: "嘉心糖屁用没有",
-          motion: "Tap生气 -领结"
+          motion: "motion_020"
         },
         {
           text: "有人急了，但我不说是谁~",
-          motion: "Tap= =  左蝴蝶结"
+          motion: "motion_030"
         },
         {
           text: "呜呜...呜呜呜....",
-          motion: "Tap哭 -眼角"
+          motion: "motion_040"
         },
         {
           text: "想然然了没有呀~",
-          motion: "Tap害羞-中间刘海"
+          motion: "motion_100"
         },
         {
           text: "阿草好软呀~",
-          motion: "Tap抱阿草-左手"
+          motion: "motion_200"
         },
         {
           text: "不要再戳啦！好痒！",
-          motion: "Tap摇头- 身体"
+          motion: "motion_201"
         },
         {
           text: "嗷呜~~~",
-          motion: "Tap耳朵-发卡"
+          motion: "motion_300"
         },
         {
           text: "zzZ。。。",
-          motion: "Leave"
-        },
-        {
-          text: "哇！好吃的！",
-          motion: "Tap右头发"
+          motion: "motion_400"
         },
       ]
 
-    } else if (modelNmae === "Ava") {
-      initConfig.content.skin[1] = ["我是<s>拉胯</s>Gamer担当 向晚 AvA~", "怎么推流辣！", "AAAAAAAAAAvvvvAAA 向晚！"]
-      playAction({
-        motion: "Tap左眼",
-        from: {
-          "Part15": 1
-        },
-        to: {
-          "Part15": 0
-        }
-      })
-
-      touchList = [
-        {
-          text: "水母 水母~ 只是普通的生物",
-          motion: "Tap右手"
-        },
-        {
-          text: "可爱的鸽子鸽子~我喜欢你~",
-          motion: "Tap胸口项链",
-          from: {
-            "Part12": 1
-          },
-          to: {
-            "Part12": 0
-          }
-        },
-        {
-          text: "好...好兄弟之间喜欢很正常啦",
-          motion: "Tap中间刘海",
-          from: {
-            "Part12": 1
-          },
-          to: {
-            "Part12": 0
-          }
-        },
-        {
-          text: "啊啊啊！怎么推流辣",
-          motion: "Tap右眼",
-          from: {
-            "Part16": 1
-          },
-          to: {
-            "Part16": 0
-          }
-        },
-        {
-          text: "你怎么老摸我，我的身体是不是可有魅力",
-          motion: "Tap嘴"
-        },
-        {
-          text: "AAAAAAAAAAvvvvAAA 向晚！",
-          motion: "Tap左眼",
-          from: {
-            "Part15": 1
-          },
-          to: {
-            "Part15": 0
-          }
-        }
-      ]
-
-      // 钻头比较大，宽度*1.2倍，模型位移也要重新计算
-      canvas.width = model.width * 1.2
-      model.x = canvas.width - model.width
-
-      // 模型问题，手动隐藏指定部件
-      const hideParts = [
-        "Part5", // 晕
-        "neko", // 喵喵拳
-        "game", // 左手游戏手柄
-        "Part15", // 墨镜
-        "Part21", // 右手小臂
-        "Part22", // 左手垂下
-        "Part", // 双手抱拳
-        "Part16", // 惊讶特效
-        "Part12" // 小心心
-      ]
-      const hidePartsIndex = hideParts.map(id => coreModel._partIds.indexOf(id))
-      hidePartsIndex.forEach(idx => {
-        coreModel._partOpacities[idx] = 0
-      })
     }
   }
 
