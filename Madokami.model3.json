@@ -2,107 +2,107 @@
   "Version": 3,
   "Type": 0,
   "FileReferences": {
-    "Moc": "maomao.moc3",
+    "Moc": "Madokami.moc3",
     "Textures": [
       "textures/0_0.png"
     ],
-    "Physics": "maomao.Physics3.json",
+    "Physics": "Madokami.Physics3.json",
     "PhysicsV2": {
-      "File": "maomao.Physics3.json"
+      "File": "Madokami.Physics3.json"
     },
-    "Pose": "maomao.Pose3.json",
+    "Pose": "Madokami.Pose3.json",
     "Motions": {
       "Motion": [
         {
           "Name": "motion_000",
-          "File": "motions/maomao_Motion_0.motion3.json"
+          "File": "motions/Madokami_Motion_0.motion3.json"
         },
         {
           "Name": "motion_001",
-          "File": "motions/maomao_Motion_1.motion3.json"
+          "File": "motions/Madokami_Motion_1.motion3.json"
         },
         {
           "Name": "motion_010",
-          "File": "motions/maomao_Motion_2.motion3.json"
+          "File": "motions/Madokami_Motion_2.motion3.json"
         },
         {
           "Name": "motion_020",
-          "File": "motions/maomao_Motion_3.motion3.json"
+          "File": "motions/Madokami_Motion_3.motion3.json"
         },
         {
           "Name": "motion_030",
-          "File": "motions/maomao_Motion_4.motion3.json"
+          "File": "motions/Madokami_Motion_4.motion3.json"
         },
         {
           "Name": "motion_040",
-          "File": "motions/maomao_Motion_5.motion3.json"
+          "File": "motions/Madokami_Motion_5.motion3.json"
         },
         {
           "Name": "motion_100",
-          "File": "motions/maomao_Motion_6.motion3.json"
+          "File": "motions/Madokami_Motion_6.motion3.json"
         },
         {
           "Name": "motion_200",
-          "File": "motions/maomao_Motion_7.motion3.json"
+          "File": "motions/Madokami_Motion_7.motion3.json"
         },
         {
           "Name": "motion_201",
-          "File": "motions/maomao_Motion_8.motion3.json"
+          "File": "motions/Madokami_Motion_8.motion3.json"
         },
         {
           "Name": "motion_300",
-          "File": "motions/maomao_Motion_9.motion3.json"
+          "File": "motions/Madokami_Motion_9.motion3.json"
         },
         {
           "Name": "motion_400",
-          "File": "motions/maomao_Motion_10.motion3.json"
+          "File": "motions/Madokami_Motion_10.motion3.json"
         }
       ]
     },
     "Expressions": [
       {
         "Name": "mtn_ex_001.exp3.json",
-        "File": "expressions/maomao_0.exp3.json"
+        "File": "expressions/Madokami_0.exp3.json"
       },
       {
         "Name": "mtn_ex_010.exp3.json",
-        "File": "expressions/maomao_1.exp3.json"
+        "File": "expressions/Madokami_1.exp3.json"
       },
       {
         "Name": "mtn_ex_011.exp3.json",
-        "File": "expressions/maomao_2.exp3.json"
+        "File": "expressions/Madokami_2.exp3.json"
       },
       {
         "Name": "mtn_ex_020.exp3.json",
-        "File": "expressions/maomao_3.exp3.json"
+        "File": "expressions/Madokami_3.exp3.json"
       },
       {
         "Name": "mtn_ex_030.exp3.json",
-        "File": "expressions/maomao_4.exp3.json"
+        "File": "expressions/Madokami_4.exp3.json"
       },
       {
         "Name": "mtn_ex_031.exp3.json",
-        "File": "expressions/maomao_5.exp3.json"
+        "File": "expressions/Madokami_5.exp3.json"
       },
       {
         "Name": "mtn_ex_040.exp3.json",
-        "File": "expressions/maomao_6.exp3.json"
+        "File": "expressions/Madokami_6.exp3.json"
       },
       {
         "Name": "mtn_ex_041.exp3.json",
-        "File": "expressions/maomao_7.exp3.json"
+        "File": "expressions/Madokami_7.exp3.json"
       },
       {
         "Name": "mtn_ex_051.exp3.json",
-        "File": "expressions/maomao_8.exp3.json"
+        "File": "expressions/Madokami_8.exp3.json"
       },
       {
         "Name": "mtn_ex_052.exp3.json",
-        "File": "expressions/maomao_9.exp3.json"
+        "File": "expressions/Madokami_9.exp3.json"
       },
       {
         "Name": "mtn_ex_060.exp3.json",
-        "File": "expressions/maomao_10.exp3.json"
+        "File": "expressions/Madokami_10.exp3.json"
       }
     ]
   },
