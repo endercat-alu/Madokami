@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         MadoHomu! 橘味小尾巴
-// @version      yuri1.7
+// @version      yuri1.8
 // @description  在 Discourse 回复或创建帖子时按下 Alt + Enter 后自动添加橘味小尾巴
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
 // @icon         https://www.sakurayuri.top/favicon.ico
 // @license      MIT
 // @grant        GM_xmlhttpRequest
+// @grant        GM_registerMenuCommand
 // @run-at       document-end
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js
 // ==/UserScript==
@@ -53,17 +54,17 @@
     // 注册油猴菜单按钮
     GM_registerMenuCommand("添加橘味小尾巴", function() {
         if (isContentValid()) {
-            insertSignature();
+            getRandomSentence(insertSignature);
         } else {
             alert('需要至少 6 个字符。');
         }
     });
-    
+
     // Alt + Enter
     $(document).on('keydown', 'textarea.d-editor-input', function(event) {
         if (event.key === 'Enter' && event.altKey) {
             if (isContentValid()) {
-                insertSignature(signature);
+                getRandomSentence(insertSignature);
             }
         }
     });
