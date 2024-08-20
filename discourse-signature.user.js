@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Madoka! 文字小尾巴
-// @version      ver1.6
-// @description  在 Discourse 回复或创建帖子时快速按三次 Enter 后自动添加小尾巴，并使用 IP 选择逻辑。
+// @version      ver1.7
+// @description  在 Discourse 回复或创建帖子时按下 Alt + Enter 后自动添加小尾巴，并使用 IP 选择逻辑。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
 // @icon         https://www.sakurayuri.top/favicon.ico
@@ -147,25 +147,12 @@
         }
     }
 
-    // 3 Enters within 2.5 seconds
+    // Alt + Enter
     $(document).on('keydown', 'textarea.d-editor-input', function(event) {
-        if (event.key === 'Enter') {
-            const currentTime = new Date().getTime();
-
-            if (currentTime - lastEnterTime <= 2000) {
-                enterCount++;
-            } else {
-                enterCount = 1; // Reset count if more than 2 seconds passed
+        if (event.key === 'Enter' && event.altKey) {
+            if (isContentValid()) {
+                insertSignature(signature);
             }
-
-            lastEnterTime = currentTime;
-
-            if (enterCount === 3 && isContentValid()) {
-                getLocation(insertSignature);
-                enterCount = 0;
-            }
-        } else {
-            enterCount = 0; // Reset count on any other key press
         }
     });
 
