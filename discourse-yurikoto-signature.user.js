@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MadoHomu! 橘味小尾巴
-// @version      yuri1.6
+// @version      yuri1.7
 // @description  在 Discourse 回复或创建帖子时按下 Alt + Enter 后自动添加橘味小尾巴
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
