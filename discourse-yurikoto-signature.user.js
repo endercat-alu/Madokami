@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MadoHomu! 橘味小尾巴
-// @version      yuri1.3
-// @description  在 Discourse 回复或创建帖子时快速按三次 Enter 后自动添加橘味小尾巴
+// @version      yuri1.5
+// @description  在 Discourse 回复或创建帖子时按下 Alt + Enter 后自动添加橘味小尾巴
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
 // @icon         https://www.sakurayuri.top/favicon.ico
@@ -50,26 +50,12 @@
         }
     }
 
-    // 3 次 Enter 键
+    // Alt + Enter
     $(document).on('keydown', 'textarea.d-editor-input', function(event) {
-        if (event.key === 'Enter') {
-            const currentTime = new Date().getTime();
-
-            if (currentTime - lastEnterTime <= 2000) {
-                enterCount++;
-            } else {
-                enterCount = 1; // 超过 2 秒重置计数
+        if (event.key === 'Enter' && event.altKey) {
+            if (isContentValid()) {
+                insertSignature(signature);
             }
-
-            lastEnterTime = currentTime;
-
-            if (enterCount === 3 && isContentValid()) {
-                getRandomSentence(insertSignature);
-                enterCount = 0;
-            }
-        } else {
-            enterCount = 0; // 任何其他键按下时重置计数
         }
     });
-
 })();
