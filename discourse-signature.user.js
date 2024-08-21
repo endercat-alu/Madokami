@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Madoka! 文字小尾巴
 // @version      ver2.1
-// @description  在 Discourse 回复或创建帖子时按下 Alt + Enter 后自动添加小尾巴，并使用 IP 选择逻辑。
+// @description  在 Discourse 回复或创建帖子时插入小尾巴，并使用 IP 选择逻辑。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
 // @icon         https://www.sakurayuri.top/favicon.ico
@@ -15,14 +15,13 @@
 (function() {
     'use strict';
 
-    let enterCount = 0;
-    let lastEnterTime = 0;
     let locationMode = localStorage.getItem('locationMode') || 'auto'; // 默认 "自动选择"
 
     // 注册菜单命令
-    GM_registerMenuCommand("自动选择", () => setLocationMode('auto'));
+    GM_registerMenuCommand("自动选择位置", () => setLocationMode('auto'));
     GM_registerMenuCommand("使用城市作为子位置", () => setLocationMode('city'));
     GM_registerMenuCommand("使用省份作为子位置", () => setLocationMode('region'));
+    GM_registerMenuCommand("插入文字小尾巴", insertSignatureWithLocation);
 
     function setLocationMode(mode) {
         locationMode = mode;
@@ -101,7 +100,6 @@
                         location = country === regionName ? `${country}, ${city}` : `${country}, ${regionName}`;
                 }
 
-                // 只有当 country === 子位置时才简写
                 if ((locationMode === 'city' && country === city) || (locationMode === 'region' && country === regionName)) {
                     location = country;
                 }
@@ -123,17 +121,7 @@
         return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
     }
 
-    // Length detection
-    function isContentValid() {
-        const textarea = document.querySelector('textarea.d-editor-input');
-        if (textarea) {
-            const content = textarea.value.trim().replace(/\s+/g, ''); // 去掉空格
-            return content.length >= 6;
-        }
-        return false;
-    }
-
-    // Insert
+    // Insert Signature
     function insertSignature(location) {
         const browserInfo = getBrowserInfo();
         const osInfo = getOSInfo();
@@ -146,3 +134,24 @@
             textarea.value += signature;
         }
     }
+
+    // Combine location fetching and insertion
+    function insertSignatureWithLocation() {
+        if (isContentValid()) {
+            getLocation(insertSignature);
+        } else {
+            alert('需要至少 6 个字符。');
+        }
+    }
+
+    // Length detection
+    function isContentValid() {
+        const textarea = document.querySelector('textarea.d-editor-input');
+        if (textarea) {
+            const content = textarea.value.trim().replace(/\s+/g, ''); // 去掉空格
+            return content.length >= 6;
+        }
+        return false;
+    }
+
+})();
