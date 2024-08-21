@@ -139,6 +139,7 @@
     function insertSignatureWithLocation() {
         if (isContentValid()) {
             getLocation(insertSignature);
+            const event = new Event('change') textarea.dispatchEvent(event)
         } else {
             alert('需要至少 6 个字符。');
         }
