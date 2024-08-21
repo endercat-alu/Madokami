@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 800 50"
+    style="background-color: #00000000;"
+    width="800px" height="50px"
+    id="signature-svg">
+    
+    <path id="path" d="M10,40 H790" fill="transparent"/>
+
+    <text font-family='"Fira Code", monospace' fill="#F796F2EE" font-size="20"
+        dominant-baseline="middle"
+        text-anchor="middle">
+        <textPath id="signature-text" xlink:href="#path">
+            Loading...
+        </textPath>
+    </text>
+
+    <script type="application/ecmascript">
+        <![CDATA[
+        function getBrowserInfo() {
+            const ua = navigator.userAgent;
+            let browser, version;
+
+            if (ua.indexOf("Chrome") > -1) {
+                browser = "Google Chrome";
+                version = ua.match(/Chrome\/([0-9]+)/)[1];
+            } else if (ua.indexOf("Firefox") > -1) {
+                browser = "Firefox";
+                version = ua.match(/Firefox\/([0-9]+)/)[1];
+            } else if (ua.indexOf("Safari") > -1) {
+                browser = "Safari";
+                version = ua.match(/Version\/([0-9]+)/)[1];
+            } else {
+                browser = "Web Browser";
+                version = "";
+            }
+
+            return `${browser} ${version}`;
+        }
+
+        function getOSInfo() {
+            const ua = navigator.userAgent;
+            let os;
+
+            if (ua.indexOf('Windows NT 10.0') > -1) {
+                os = "Windows 10";
+            } else if (ua.indexOf('Windows NT 6.3') > -1) {
+                os = "Windows 8.1";
+            } else if (ua.indexOf('Windows NT 6.2') > -1) {
+                os = "Windows 8";
+            } else if (ua.indexOf('Windows NT 6.1') > -1) {
+                os = "Windows 7";
+            } else if (ua.indexOf('Mac OS X') > -1) {
+                os = ua.match(/Mac OS X ([\d_]+)/)[0].replace(/_/g, '.');
+            } else if (ua.indexOf('Linux') > -1) {
+                os = "Linux";
+            } else {
+                os = "Unknown OS";
+            }
+
+            return os;
+        }
+
+        function getLocation(callback) {
+            fetch("http://ip-api.com/json")
+                .then(response => response.json())
+                .then(data => {
+                    const country = data.country || "Unknown Country";
+                    const region = data.regionName || "Unknown Region";
+                    const city = data.city || "Unknown City";
+
+                    let location;
+                    if (country === region && region === city) {
+                        location = country;
+                    } else if (country === region) {
+                        location = `${country}, ${city}`;
+                    } else {
+                        location = `${country}, ${region}`;
+                    }
+
+                    callback(location);
+                });
+        }
+
+        function getCurrentDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        function updateSignature() {
+            const browserInfo = getBrowserInfo();
+            const osInfo = getOSInfo();
+            const dateTime = getCurrentDateTime();
+
+            getLocation(location => {
+                const signatureText = `${browserInfo} | ${osInfo} | ${location} | ${dateTime}`;
+                document.getElementById('signature-text').textContent = signatureText;
+            });
+        }
+
+        // Update the signature on load
+        updateSignature();
+        ]]>
+    </script>
+</svg>
