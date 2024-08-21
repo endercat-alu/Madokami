@@ -46,7 +46,8 @@
 }
 
 #pio {
-  height: 240px;
+  height: 300px;
+  width: 300px;
 }
 
 .pio-action .pio-home {
@@ -250,7 +251,7 @@
           motion: "Tap TapGreetNight"
       },
       {
-          text: "我不想再让她们哭泣。所以，我会努力的！",
+          text: "我会继续努力的！",
           motion: "TapGreetEvening"
       },
   ]
