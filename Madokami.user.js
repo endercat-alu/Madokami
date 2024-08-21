@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                アルティメットまどか Live2D
 // @description         Powered by WhatIF Studio.
-// @version             ver2.1
+// @version             ver2.2
 // @namespace           https://github.com/endercat-alu/Madokami
 // @author              WhatIF Studio & eggacheb
 // @include             *
