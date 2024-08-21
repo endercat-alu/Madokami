@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MadoHomu! 橘味小尾巴
-// @version      yuri1.8
+// @version      yuri2.0
 // @description  在 Discourse 回复或创建帖子时按下 Alt + Enter 后自动添加橘味小尾巴
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -27,7 +27,7 @@
                 const data = JSON.parse(response.responseText);
                 const content = data.content;
                 const source = data.source;
-                const signature = `\n***\n<div style="text-align:center" dir="auto"><span style="font-size:80%">\n「${content}」——《${source}》</span></div>`;
+                const signature = `\n***\n<div style="text-align:center" dir="auto"><span style="font-size:80%">\n「${content}」——《${source}》<span style="font-size:0%"><code>madoka_sign</code>\n<code>ver2.0</code></span></span></div>`;
                 callback(signature);
             }
         });
