@@ -6,10 +6,10 @@
     "FadeInTime": 1.0,
     "FadeOutTime": 1.0,
     "Loop": true,
-    "AreBeziersRestricted": false,
+    "AreBeziersRestricted": true,
     "CurveCount": 70,
-    "TotalSegmentCount": 110,
-    "TotalPointCount": 264,
+    "TotalSegmentCount": 3000,
+    "TotalPointCount": 3000,
     "UserDataCount": 0,
     "TotalUserDataSize": 0
   },
