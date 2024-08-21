@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MadoHomu! 橘味小尾巴
-// @version      yuri2.0
+// @version      yuri2.1
 // @description  在 Discourse 回复或创建帖子时按下 Alt + Enter 后自动添加橘味小尾巴
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -27,7 +27,7 @@
                 const data = JSON.parse(response.responseText);
                 const content = data.content;
                 const source = data.source;
-                const signature = `\n***\n<div style="text-align:center" dir="auto"><span style="font-size:80%">\n「${content}」——《${source}》<span style="font-size:0%"><code>madoka_sign</code>\n<code>ver2.0</code></span></span></div>`;
+                const signature = `\n***\n<div style="text-align:center" dir="auto"><span style="font-size:80%">\n「${content}」——《${source}》<span style="font-size:0%"><code>madoka_sign</code>\n<code>yuri2.1</code></span></span></div>`;
                 callback(signature);
             }
         });
@@ -55,6 +55,7 @@
     GM_registerMenuCommand("添加橘味小尾巴", function() {
         if (isContentValid()) {
             getRandomSentence(insertSignature);
+            const event = new Event('change') textarea.dispatchEvent(event)
         } else {
             alert('需要至少 6 个字符。');
         }
