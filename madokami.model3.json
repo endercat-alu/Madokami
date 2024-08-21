@@ -12,53 +12,156 @@
     },
     "Pose": "Madokami.Pose3.json",
     "Motions": {
-      "Motion": [
-        {
-          "Name": "motion_000",
-          "File": "motions/Madokami_Motion_0.motion3.json"
-        },
-        {
-          "Name": "motion_001",
-          "File": "motions/Madokami_Motion_1.motion3.json"
-        },
-        {
-          "Name": "motion_010",
-          "File": "motions/Madokami_Motion_2.motion3.json"
-        },
-        {
-          "Name": "motion_020",
-          "File": "motions/Madokami_Motion_3.motion3.json"
-        },
-        {
-          "Name": "motion_030",
-          "File": "motions/Madokami_Motion_4.motion3.json"
-        },
-        {
-          "Name": "motion_040",
-          "File": "motions/Madokami_Motion_5.motion3.json"
-        },
-        {
-          "Name": "motion_100",
-          "File": "motions/Madokami_Motion_6.motion3.json"
-        },
-        {
-          "Name": "motion_200",
-          "File": "motions/Madokami_Motion_7.motion3.json"
-        },
-        {
-          "Name": "motion_201",
-          "File": "motions/Madokami_Motion_8.motion3.json"
-        },
-        {
-          "Name": "motion_300",
-          "File": "motions/Madokami_Motion_9.motion3.json"
-        },
-        {
-          "Name": "motion_400",
-          "File": "motions/Madokami_Motion_10.motion3.json"
-        }
-      ]
-    },
+        "Idle": [
+            {
+                "Name": "待机",
+                "File": "motions/Madokami_Motion_0.motion3.json"
+            }
+        ],
+        "Shake": [
+            {
+                "Name": "晕",
+                "File": "motions/Madokami_Motion_1.motion3.json",
+                "Text": "啊呜...",
+                "TextDuration": 2000
+            },
+            {
+                "File": "motions/Madokami_Motion_2.motion3.json"
+            }
+        ],
+        "Tap左手": [
+            {
+                "Name": "吉他",
+                "File": "motions/Madokami_Motion_3.motion3.json",
+                "Text": "可爱的鸽子鸽子~我喜欢你~",
+                "TextDelay": 1200,
+                "TextDuration": 5600
+            }
+        ],
+        "Tap右手": [
+            {
+                "Name": "游戏",
+                "File": "motions/Madokami_Motion_4.motion3.json",
+                "Text": "来陪我玩游戏！",
+                "TextDelay": 600,
+                "TextDuration": 2500
+            }
+        ],
+        "Tap腰": [
+            {
+                "Name": "傲娇",
+                "File": "motions/Madokami_Motion_5.motion3.json",
+                "Text": "哼，才不是傲娇大小姐",
+                "TextDelay": 500,
+                "TextDuration": 3000
+            }
+        ],
+        "Tap中间刘海": [
+            {
+                "Name": "害羞",
+                "File": "motions/Madokami_Motion_6.motion3.json",
+                "Text": "好...好兄弟之间喜欢很正常啦",
+                "TextDelay": 1500,
+                "TextDuration": 3000
+            },
+            {
+                "Name": "害羞2",
+                "File": "motions/Madokami_Motion_7.motion3.json",
+                "Text": "也...也不是不可以",
+                "TextDelay": 2000,
+                "TextDuration": 3000
+            }
+        ],
+        "Tap嘴": [
+            {
+                "Name": "傲娇",
+                "File": "motions/Madokami_Motion_8.motion3.json",
+                "Text": "什么傲娇啦，我才没有",
+                "TextDelay": 500,
+                "TextDuration": 2200
+            }
+        ],
+        "Tap胸口项链": [
+            {
+                "Name": "笑",
+                "File": "motions/Madokami_Motion_9.motion3.json"
+            }
+        ],
+        "Tap脖子": [
+            {
+                "Name": "监督",
+                "File": "motions/Madokami_Motion_10.motion3.json",
+                "Text": "嗯？老戳我干嘛，快去干正事啦 ",
+                "TextDelay": 550,
+                "TextDuration": 4000
+            }
+        ],
+        "Tap 右边头饰小花": [
+            {
+                "Name": "懒羊羊",
+                "File": "motions/Madokami_Motion_0.motion3.json",
+                "Text": "顶晚人...顶晚人在哪里...",
+                "TextDelay": 800,
+                "TextDuration": 6000
+            }
+        ],
+        "Tap右头饰": [
+            {
+                "Name": "猫",
+                "File": "motions/Madokami_Motion_1.motion3.json",
+                "Text": "neko panch！",
+                "TextDelay": 500,
+                "TextDuration": 2000
+            }
+        ],
+        "Tap右眼": [
+            {
+                "Name": "惊讶",
+                "File": "motions/Madokami_Motion_2.motion3.json",
+                "Text": "啊",
+                "TextDelay": 200,
+                "TextDuration": 1000
+            }
+        ],
+        "Tap左眼": [
+            {
+                "Name": "墨镜",
+                "File": "motions/Madokami_Motion_3.motion3.json",
+                "Text": "嗯哼~我超帅的",
+                "TextDelay": 700,
+                "TextDuration": 2000
+            }
+        ],
+        "Tap右马尾   ": [
+            {
+                "Name": "水母",
+                "File": "motions/Madokami_Motion_4.motion3.json"
+            }
+        ],
+        "Tap左马尾": [
+            {
+                "Name": "><",
+                "File": "motions/Madokami_Motion_5.motion3.json",
+                "Text": "头发摸乱了啦~",
+                "TextDelay": 500,
+                "TextDuration": 2000
+            }
+        ],
+        "Tap右手臂": [
+            {
+                "File": "motions/Madokami_Motion_6.motion3.json",
+                "Text": "嗯？老戳我干嘛，快去干正事啦 ",
+                "TextDelay": 550,
+                "TextDuration": 4000
+            }
+        ],
+        "Tap左中马尾": [
+            {
+                "File": "motions/Madokami_Motion_7.motion3.json"
+            }
+        ]
+    }
+},
     "Expressions": [
       {
         "Name": "mtn_ex_001.exp3.json",
