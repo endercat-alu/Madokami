@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                アルティメットまどか Live2D
 // @description         Powered by WhatIF Studio.
-// @version             ver1.4
+// @version             ver2.1
 // @namespace           https://github.com/endercat-alu/Madokami
 // @author              WhatIF Studio
 // @include             *
@@ -15,7 +15,7 @@
   'use strict';
 
   if (inIframe()) {
-    console.log('Live2D 不会在 iframe 中加载。');
+    console.log('iframe中不加载');
     return false;
   }
 
@@ -46,8 +46,7 @@
 }
 
 #pio {
-  height: 300px;
-  width: 300px;
+  height: 240px;
 }
 
 .pio-action .pio-home {
@@ -111,7 +110,7 @@
 
     loadmadoka()
 
-    console.log("Done.")
+    console.log("all done.")
   });
 
   // 初始化设定
@@ -130,7 +129,7 @@
     },
     model: [
       // 待加载的模型列表
-      "https://raw.githubusercontent.com/endercat-alu/Madokami/main/Madokami.model3.json",
+      "https://raw.githubusercontent.com/eggacheb/Madokami/main/Madokami.model3.json"
     ],
     tips: true, // 时间问好
     onModelLoad: onModelLoad // 模型加载完成回调
@@ -151,7 +150,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
     topBtn.onmouseover = function () {
-      pio_reference.modules.render("要回到页面顶部吗？");
+      pio_reference.modules.render("想回到页面顶部吗？");
     };
 
     // Then apply style
@@ -161,17 +160,17 @@
   // 模型加载完成回调
   function onModelLoad(model) {
     const canvas = document.getElementById("pio")
-    const modelName = model.internalModel.settings.name
+    const modelNmae = model.internalModel.settings.name
     const coreModel = model.internalModel.coreModel
     const motionManager = model.internalModel.motionManager
 
     let touchList = [
       {
-        text: "Text #1",
+        text: "点击展示文本1",
         motion: "Idle"
       },
       {
-        text: "Text #2",
+        text: "点击展示文本2",
         motion: "Idle"
       }
     ]
@@ -208,50 +207,54 @@
       playAction(action)
     }
 
-    if (modelName === "アルティメットまどか") {
-      // 圆神，启动！
+    if (modelNmae === "main") {
 
-      // 入场动作及文案
-      initConfig.content.skin[1] = ["11", "45", "14"]
-      playAction({ motion: "motion_010" })
+  console.log("Matched model: アルティメットまどか");
 
-      // 点击动作及文案，不区分区域
-      touchList = [
-        {
-          text: "嘉心糖屁用没有",
-          motion: "motion_020"
-        },
-        {
-          text: "有人急了，但我不说是谁~",
-          motion: "motion_030"
-        },
-        {
-          text: "呜呜...呜呜呜....",
-          motion: "motion_040"
-        },
-        {
-          text: "想然然了没有呀~",
-          motion: "motion_100"
-        },
-        {
-          text: "阿草好软呀~",
-          motion: "motion_200"
-        },
-        {
-          text: "不要再戳啦！好痒！",
-          motion: "motion_201"
-        },
-        {
-          text: "嗷呜~~~",
-          motion: "motion_300"
-        },
-        {
-          text: "zzZ。。。",
-          motion: "motion_400"
-        },
-      ]
+  // 入场动作及文案
+  initConfig.content.skin[1] = ["我是アルティメットまどか", "你好，我是圆神", "很高兴见到你"]
+  playAction({ motion: "Idle" })
 
-    }
+  // 点击动作及文案，不区分区域
+  touchList = [
+      {
+          text: "你在召唤我吗？",
+          motion: "TapGreetMorning"
+      },
+      {
+          text: "需要我的帮助吗？",
+          motion: "Taptalk2"
+      },
+      {
+          text: "我会守护大家的。",
+          motion: "Taptalk3"
+      },
+      {
+          text: "不要放弃希望哦。",
+          motion: "Taptalk4"
+      },
+      {
+          text: "相信奇迹和魔法吧！",
+          motion: "Taptalk5"
+      },
+      {
+          text: "我会一直在你身边的。",
+          motion: "Taptalk6"
+      },
+      {
+          text: "让我们一起创造美好的未来吧。",
+          motion: "Taptalk7"
+      },
+      {
+          text: "安心地休息吧，我会守护你的梦想。",
+          motion: "Tap TapGreetNight"
+      },
+      {
+          text: "我不想再譲她們哭泣",
+          motion: "TapGreetEvening"
+      },
+  ]
+}
   }
 
   // 检测是否处于iframe内嵌环境
