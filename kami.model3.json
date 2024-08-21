@@ -1,0 +1,200 @@
+{
+  "Version": 3,
+  "Type": 0,
+  "FileReferences": {
+    "Moc": "Madokami.moc3",
+    "Textures": [
+      "textures/0_0.png"
+    ],
+    "Physics": "Madokami.Physics3.json",
+    "PhysicsV2": {
+      "File": "Madokami.Physics3.json"
+    },
+    "Pose": "Madokami.Pose3.json",
+    "Motions": {
+      "Idle": [
+        {
+          "File": "motions/Madokami_Motion_1.motion3.json"
+        }
+      ],
+      "TapGreetMorning": [
+        {
+          "File": "motions/Madokami_Motion_1.motion3.json"
+        }
+      ],
+      "Taptalk2": [
+        {
+          "File": "motions/Madokami_Motion_2.motion3.json"
+        }
+      ],
+      "Taptalk3": [
+        {
+          "File": "motions/Madokami_Motion_3.motion3.json"
+        }
+      ],
+      "Taptalk4": [
+        {
+          "File": "motions/Madokami_Motion_4.motion3.json"
+        }
+      ],
+      "Taptalk5": [
+        {
+          "File": "motions/Madokami_Motion_5.motion3.json"
+        }
+      ],
+      "Taptalk6": [
+        {
+          "File": "motions/Madokami_Motion_6.motion3.json"
+        }
+      ],
+      "Taptalk7": [
+        {
+          "File": "motions/Madokami_Motion_7.motion3.json"
+        }
+      ],
+      "TapGreetNight": [
+        {
+          "File": "motions/Madokami_Motion_8.motion3.json"
+        }
+      ],
+      "TapGreetEvening": [
+        {
+          "File": "motions/Madokami_Motion_9.motion3.json"
+        }
+      ]
+    },
+    "Expressions": [
+      {
+        "Name": "mtn_ex_001.exp3.json",
+        "File": "expressions/Madokami_0.exp3.json"
+      },
+      {
+        "Name": "mtn_ex_010.exp3.json",
+        "File": "expressions/Madokami_1.exp3.json"
+      },
+      {
+        "Name": "mtn_ex_011.exp3.json",
+        "File": "expressions/Madokami_2.exp3.json"
+      },
+      {
+        "Name": "mtn_ex_020.exp3.json",
+        "File": "expressions/Madokami_3.exp3.json"
+      },
+      {
+        "Name": "mtn_ex_030.exp3.json",
+        "File": "expressions/Madokami_4.exp3.json"
+      },
+      {
+        "Name": "mtn_ex_031.exp3.json",
+        "File": "expressions/Madokami_5.exp3.json"
+      },
+      {
+        "Name": "mtn_ex_040.exp3.json",
+        "File": "expressions/Madokami_6.exp3.json"
+      },
+      {
+        "Name": "mtn_ex_041.exp3.json",
+        "File": "expressions/Madokami_7.exp3.json"
+      },
+      {
+        "Name": "mtn_ex_051.exp3.json",
+        "File": "expressions/Madokami_8.exp3.json"
+      },
+      {
+        "Name": "mtn_ex_052.exp3.json",
+        "File": "expressions/Madokami_9.exp3.json"
+      },
+      {
+        "Name": "mtn_ex_060.exp3.json",
+        "File": "expressions/Madokami_10.exp3.json"
+      }
+    ]
+  },
+  "Controllers": {
+    "ParamHit": {},
+    "ParamLoop": {},
+    "KeyTrigger": {},
+    "ParamTrigger": {},
+    "AreaTrigger": {},
+    "HandTrigger": {},
+    "EyeBlink": {
+      "MinInterval": 500,
+      "MaxInterval": 6000,
+      "Items": [
+        {
+          "Id": "ParamEyeLOpen",
+          "Min": 0.0,
+          "Max": 1.0,
+          "BlendMode": 2,
+          "Input": 0
+        },
+        {
+          "Id": "ParamEyeROpen",
+          "Min": 0.0,
+          "Max": 1.0,
+          "BlendMode": 2,
+          "Input": 0
+        }
+      ],
+      "Enabled": true
+    },
+    "LipSync": {
+      "Gain": 5.0,
+      "Items": [
+        {
+          "Id": "ParamMouthOpenY",
+          "Min": 0.0,
+          "Max": 1.0,
+          "Input": 0
+        }
+      ],
+      "Enabled": true
+    },
+    "MouseTracking": {
+      "SmoothTime": 0.15,
+      "Enabled": true
+    },
+    "AutoBreath": {
+      "Enabled": true
+    },
+    "ExtraMotion": {
+      "Enabled": true
+    },
+    "Accelerometer": {
+      "Enabled": true
+    },
+    "Microphone": {},
+    "Transform": {},
+    "FaceTracking": {
+      "Enabled": true
+    },
+    "HandTracking": {},
+    "ParamValue": {},
+    "PartOpacity": {},
+    "ArtmeshOpacity": {},
+    "ArtmeshColor": {},
+    "ArtmeshCulling": {
+      "DefaultMode": 0
+    },
+    "IntimacySystem": {
+      "MaxValue": 40,
+      "Enabled": true
+    }
+  },
+  "HitAreas": [
+    {
+      "Id": "HitAreaBody"
+    },
+    {
+      "Id": "HitAreaHead"
+    }
+  ],
+  "Options": {
+    "Id": "210100",
+    "Name": "アルティメットまどか",
+    "ScaleFactor": 1.6,
+    "AnisoLevel": 2,
+    "TexFixed": true,
+    "TexType": 0
+  }
+}
