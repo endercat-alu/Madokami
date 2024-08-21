@@ -7,9 +7,7 @@
     
     <path id="path" d="M10,40 H790" fill="transparent"/>
 
-    <text font-family='"Fira Code", monospace' fill="#F796F2EE" font-size="20"
-        dominant-baseline="middle"
-        text-anchor="middle">
+    <text font-family='"Fira Code", monospace' fill="#F796F2EE" font-size="16">
         <textPath id="signature-text" xlink:href="#path">
             Loading...
         </textPath>
