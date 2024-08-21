@@ -3,7 +3,7 @@
 // @description         Powered by WhatIF Studio.
 // @version             ver2.1
 // @namespace           https://github.com/endercat-alu/Madokami
-// @author              WhatIF Studio
+// @author              WhatIF Studio & eggacheb
 // @include             *
 // @icon                https://www.sakurayuri.top/favicon.ico
 // @license             MIT
@@ -15,7 +15,7 @@
   'use strict';
 
   if (inIframe()) {
-    console.log('iframe中不加载');
+    console.log('Live2D 在 iframe 中不会加载。');
     return false;
   }
 
@@ -129,7 +129,7 @@
     },
     model: [
       // 待加载的模型列表
-      "https://raw.githubusercontent.com/eggacheb/Madokami/main/Madokami.model3.json"
+      "https://raw.githubusercontent.com/endercat-alu/Madokami/main/Madokami.model3.json"
     ],
     tips: true, // 时间问好
     onModelLoad: onModelLoad // 模型加载完成回调
@@ -250,7 +250,7 @@
           motion: "Tap TapGreetNight"
       },
       {
-          text: "我不想再譲她們哭泣",
+          text: "我不想再让她们哭泣。所以，我会努力的！",
           motion: "TapGreetEvening"
       },
   ]
