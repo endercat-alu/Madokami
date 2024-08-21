@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Madoka! 文字小尾巴
-// @version      ver2.0
+// @version      ver2.1
 // @description  在 Discourse 回复或创建帖子时按下 Alt + Enter 后自动添加小尾巴，并使用 IP 选择逻辑。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -139,7 +139,7 @@
         const osInfo = getOSInfo();
         const dateTime = getCurrentDateTime();
 
-        const signature = `\n***\n<div style="text-align:center" dir="auto"><span style="font-size:80%">\n${browserInfo} | ${osInfo} | ${location} | ${dateTime}<span style="font-size:0%"><code>madoka_sign</code>\n<code>ver2.0</code></span></span></div>`;
+        const signature = `\n***\n<div style="text-align:center" dir="auto"><span style="font-size:80%">\n${browserInfo} | ${osInfo} | ${location} | ${dateTime}<span style="font-size:0%"><code>madoka_sign</code>\n<code>ver2.1</code></span></span></div>`;
 
         const textarea = document.querySelector('textarea.d-editor-input');
         if (textarea) {
