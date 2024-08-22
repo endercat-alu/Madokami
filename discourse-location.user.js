@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Discourse IP
-// @version      ver4.7
+// @version      ver4.8
 // @description  自动获取用户当前位置并更新到 Discourse 个人资料中。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -162,6 +162,21 @@
                         if ((locationMode === 'city' && country === city) || (locationMode === 'province' && country === province)) {
                             expectedLocation = `IP: ${country}`;
                         }
+                        // 防空（确信）
+                        if (city === '') {
+                            expectedLocation = `IP: ${country}}, ${province}`;
+                            if (province === ''){
+                                expectedLocation = `IP: ${country}}`;
+                            }
+                        }
+
+                        if (province === '') {
+                            expectedLocation = `IP: ${country}}, ${city}`;
+                            if (city === ''){
+                                expectedLocation = `IP: ${country}}`;
+                            }
+                        }
+
 
                         console.log("Current IP location:", expectedLocation);
 
