@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Discourse IP
-// @version      ver4.6
+// @version      ver4.7
 // @description  自动获取用户当前位置并更新到 Discourse 个人资料中。
 // @author       鹿目 まどか Advanced
 // @match        https://linux.do/*
@@ -22,7 +22,7 @@
     // 注册菜单命令
     GM_registerMenuCommand("自动选择", () => setLocationMode('auto'));
     GM_registerMenuCommand("使用城市作为子位置", () => setLocationMode('city'));
-    GM_registerMenuCommand("使用省份作为子位置", () => setLocationMode('region'));
+    GM_registerMenuCommand("使用省份作为子位置", () => setLocationMode('province'));
 
     function setLocationMode(mode) {
         locationMode = mode;
@@ -137,11 +137,11 @@
 
                 GM_xmlhttpRequest({
                     method: "GET",
-                    url: "http://ip-api.com/json",
+                    url: "https://ip.useragentinfo.com/json",
                     onload: function(response) {
                         const responseData = JSON.parse(response.responseText);
                         let country = responseData.country;
-                        let regionName = responseData.regionName;
+                        let province = responseData.province;
                         let city = responseData.city;
 
                         let expectedLocation;
@@ -150,16 +150,16 @@
                             case 'city':
                                 expectedLocation = `IP: ${country}, ${city}`;
                                 break;
-                            case 'region':
-                                expectedLocation = `IP: ${country}, ${regionName}`;
+                            case 'province':
+                                expectedLocation = `IP: ${country}, ${province}`;
                                 break;
                             case 'auto':
                             default:
-                                expectedLocation = country === regionName ? `IP: ${country}, ${city}` : `IP: ${country}, ${regionName}`;
+                                expectedLocation = country === province ? `IP: ${country}, ${city}` : `IP: ${country}, ${province}`;
                         }
 
                         // 简写逻辑：当 country 等于子位置时，简写为 country
-                        if ((locationMode === 'city' && country === city) || (locationMode === 'region' && country === regionName)) {
+                        if ((locationMode === 'city' && country === city) || (locationMode === 'province' && country === province)) {
                             expectedLocation = `IP: ${country}`;
                         }
 
